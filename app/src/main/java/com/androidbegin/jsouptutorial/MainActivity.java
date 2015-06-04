@@ -8,6 +8,11 @@
  * Click on the titles to be transferred to each webpage.
  *
  * Version: TDR v.1.0.0
+ *
+ * TODO: Add sections for topleft, mainheadline and all three columns
+ * TODO: Fix crashing when changing from portrait to landscape and vice versa while loading.
+ * TODO: Set up menu to change background color, change font, toggle pictures?,
+ * TODO: Research API's to grab just the story and put that into another activity and toggle that also.
  */
 
 package com.androidbegin.jsouptutorial;
