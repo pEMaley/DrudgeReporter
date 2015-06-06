@@ -16,11 +16,25 @@
         <dex dex="E:\AndroidProjects\JsoupTutorial1\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-22aa961d15830ea53ab67ba75bdab6ccb9c6ae6e.jar" />
     </item>
     <item
-        jar="E:\Users\GypsyDanger\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jar="E:\Users\GypsyDanger\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="E:\AndroidProjects\JsoupTutorial1\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-f5805d082b0cad80b7936cc11a784a5ffa21618d.jar" />
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="E:\AndroidProjects\JsoupTutorial1\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-289ab38fbee1b1c1dd036831d2314c8afd959c59.jar" />
+    </item>
+    <item
+        jar="E:\AndroidProjects\JsoupTutorial1\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="E:\AndroidProjects\JsoupTutorial1\app\build\intermediates\pre-dexed\debug\classes-e67ddec45c71081bc146906b1a2fdc503ff6b6a7.jar" />
+    </item>
+    <item
+        jar="E:\AndroidProjects\JsoupTutorial1\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="E:\AndroidProjects\JsoupTutorial1\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-fd235a53bd0104bff31265d900bea8b5b1339dd7.jar" />
     </item>
 
 </items>

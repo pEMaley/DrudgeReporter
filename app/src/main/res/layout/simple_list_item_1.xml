@@ -19,5 +19,8 @@
         android:layout_height="wrap_content"
         android:padding="10dip"
         android:textSize="15dip"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:focusable="false"
+        android:background="@drawable/mydrawable"/>
+
 </LinearLayout>

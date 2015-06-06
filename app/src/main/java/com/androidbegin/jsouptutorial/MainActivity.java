@@ -7,12 +7,13 @@
  * easily able to scroll through. Any image source is loaded directly above its associated story.
  * Click on the titles to be transferred to each webpage.
  *
- * Version: TDR v.1.0.0
+ * Version: TDR v.1.1.0
  *
- * TODO: Add sections for topleft, mainheadline and all three columns
- * TODO: Fix crashing when changing from portrait to landscape and vice versa while loading.
+ * MAYBE: Add sections for topleft, mainheadline and all three columns?
+ * DONE: Fix crashing when changing from portrait to landscape and vice versa while loading.
  * TODO: Set up menu to change background color, change font, toggle pictures?,
  * TODO: Research API's to grab just the story and put that into another activity and toggle that also.
+ * DONE: Add swipetorefresh toggle
  */
 
 package com.androidbegin.jsouptutorial;
@@ -23,6 +24,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,29 +47,51 @@ import java.util.ArrayList;
  * Provides for app creation, pre-execution, asynchonous retrieval of information, and provides
  * onclickmethod for each row.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
     private static final String TAG = "MyActivity";
     private ProgressDialog mProgressDialog;
     private listViewAdapter mAdapter;
     private ListView mListView;
     private ArrayList<Item> dataForTheAdapter = new ArrayList<Item>();
+    private SwipeRefreshLayout mSwipeContainer;
 
     @Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         new backgroundTasks().execute();
         mListView = (ListView) findViewById(R.id.listView1);
+        mSwipeContainer = (SwipeRefreshLayout)findViewById(R.id.swiperefresh);
+        mSwipeContainer.setOnRefreshListener(this);
+        mSwipeContainer.setColorSchemeResources(android.R.color.holo_red_dark,
+                android.R.color.holo_red_light,
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_dark);
     }
 
-	public class backgroundTasks extends AsyncTask<String, Void, String> {
+    @Override
+    public void onRefresh() {
+       // Toast.makeText(this, "Developing...", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dataForTheAdapter.clear();
+                new backgroundTasks().execute();
+            }
+        }, 2000);
+    }
+
+    public class backgroundTasks extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             mProgressDialog = new ProgressDialog(MainActivity.this);
-            mProgressDialog.setTitle("Drudge Report");
-            mProgressDialog.setMessage("Loading...");
+            //mProgressDialog.setTitle("Drudge Report");
+            mProgressDialog.setMessage("Developing...");
             mProgressDialog.setIndeterminate(false);
+
             mProgressDialog.show();
         }
 
@@ -84,22 +109,23 @@ public class MainActivity extends Activity {
             mProgressDialog.dismiss();
             mListView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
+            mSwipeContainer.setRefreshing(false);
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     //TextView textcontent = (TextView) findViewById(R.id.article_name);
-                   // textcontent.setMovementMethod(LinkMovementMethod.getInstance());
+                    // textcontent.setMovementMethod(LinkMovementMethod.getInstance());
 
                     String text = dataForTheAdapter.get(position).getLink();
-                    if(dataForTheAdapter.get(position).getImg() == null) {
+                    if (dataForTheAdapter.get(position).getImg() == null) {
                         Intent mIntent = new Intent(Intent.ACTION_VIEW);
                         mIntent.setData(Uri.parse(text));
                         startActivity(mIntent);
                     }
+                    view.setSelected(true);
                 }
             });
         }
-
     }
 
     private void parseDrudgeReport() {
@@ -109,7 +135,10 @@ public class MainActivity extends Activity {
         for(Element link : links){
             if(link.attr("src").contains("http")) {
                 dataForTheAdapter.add(new Item(link.text(), link.attr("href"), link.attr("src")));
-
+            }
+            else if(link.getAllElements().toString().contains("color=\"red\""))
+            {
+                dataForTheAdapter.add(new Item(link.text(), link.attr("href"), true));
             }
             else
                 dataForTheAdapter.add(new Item(link.text(),link.attr("href")));

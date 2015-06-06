@@ -3,6 +3,7 @@ package com.androidbegin.jsouptutorial;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,14 @@ public class listViewAdapter extends BaseAdapter{
        }
 
        Item item = getItem(position);
-       holder.article_name.setText(item.getName());
+       if(item.fontRed()) {
+           holder.article_name.setTextColor(Color.rgb(255, 65, 54));
+           holder.article_name.setText(item.getName());
+
+       }else {
+           holder.article_name.setTextColor(Color.rgb(17,17,17));
+           holder.article_name.setText(item.getName());
+       }
        Picasso.with(this.context).load(item.getImg()).into(holder.image);
         return convertView;
    }

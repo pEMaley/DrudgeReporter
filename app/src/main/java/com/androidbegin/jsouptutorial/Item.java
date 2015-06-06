@@ -9,6 +9,7 @@ public class Item {
     private String imageLink;
     private String articleTitle;
     private String link;
+    private boolean redFont;
 
     public Item(){
         super();
@@ -19,6 +20,14 @@ public class Item {
         this.articleTitle = title;
         this.link = link;
         this.imageLink = img;
+
+    }
+
+    public Item(String title, String link, boolean font) {
+        super();
+        this.articleTitle = title;
+        this.link = link;
+        this.redFont = font;
     }
 
     public Item(String title, String link) {
@@ -43,7 +52,6 @@ public class Item {
         this.articleTitle = title;
     }
 
-    @Override
     public String toString() {
         return this.articleTitle;
     }
@@ -54,5 +62,14 @@ public class Item {
 
     public String getImg(){
         return imageLink;
+    }
+
+    public boolean fontRed(){
+        if(this.redFont) {
+            return redFont;
+        }else{
+            this.redFont = false;
+            return this.redFont;
+        }
     }
 }
